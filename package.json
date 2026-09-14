@@ -1,0 +1,39 @@
+{
+  "name": "bem-undip-stat-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test:m1": "node tests/m1_verification.cjs",
+    "test:m2": "node tests/m2_verification.cjs",
+    "test:m3": "node tests/m3_verification.cjs",
+    "test:m4": "node tests/m4_verification.cjs",
+    "test:challenger:m2": "node tests/adversarial_m2_1.cjs",
+    "test:challenger:m3": "node tests/adversarial_m3_1.cjs",
+    "test:e2e": "node tests/e2e/runner.cjs"
+  },
+  "dependencies": {
+    "echarts": "^5.5.1",
+    "jszip": "^3.10.1",
+    "lucide-react": "^1.45.0",
+    "papaparse": "^5.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/papaparse": "^5.3.14",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1"
+  }
+}

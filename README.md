@@ -5,10 +5,10 @@
 
 ---
 
-## 🌐 Akses Aplikasi
-- **Akses Jaringan Lokal (Satu Wi-Fi/Hotspot)**: `http://172.20.10.6:4173/`
-- **Akses Publik Internet**: `https://bem-undip-stat.loca.lt` (Password: `104.28.219.241`)
-- **Repositori GitHub**: `https://github.com/geovanybramanthya-bot/bem-undip-stat-app`
+## 🌐 Akses Aplikasi & Deployment
+- **Public GitHub Repository**: [github.com/geovanybramanthya/aplikasi-olah-data-biro-statistik](https://github.com/geovanybramanthya/aplikasi-olah-data-biro-statistik)
+- **Deploy to Vercel (1-Click)**: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgeovanybramanthya%2Faplikasi-olah-data-biro-statistik&project-name=aplikasi-olah-data-biro-statistik)
+- **Local Preview Server**: `http://localhost:4173/`
 
 ---
 
@@ -102,4 +102,3 @@ Unit & Adversarial Verification:
    ```
 3. Buka browser pada alamat `http://localhost:4173` (tekan `F11` untuk mode layar penuh).
 4. Klik tombol **"Muat Demo Upgrading BEM UNDIP"** atau **"Muat Demo Keamanan Kampus"** untuk langsung mendemonstrasikan aplikasi tanpa perlu mencari file Excel.
->>>>>>> c201fdd (feat: BEM UNDIP Survey Analytics Platform with Breathing Room and Full Card Export)

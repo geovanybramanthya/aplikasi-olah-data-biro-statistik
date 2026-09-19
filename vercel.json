@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "aplikasi-olah-data-biro-statistik",
   "framework": "vite",
   "buildCommand": "npm run build",

@@ -143,7 +143,7 @@ const mockTheme = {
   },
   globalDimensionality: '2d',
   showWatermark: true,
-  watermarkText: 'Biro Statistika BEM Universitas Diponegoro',
+  watermarkText: 'Biro Statistik BEM Universitas Diponegoro',
 };
 
 const mockColumns = [
@@ -240,7 +240,7 @@ async function runAllTests() {
     assert.strictEqual(TALL_BASE_HEIGHT, 600);
     assert.strictEqual(EXPORT_BG_COLOR, '#FFFFFF');
     assert.strictEqual(EXPORT_MIME_TYPE, 'image/png');
-    assert.strictEqual(WATERMARK_DEFAULT_TEXT, 'Biro Statistika BEM Universitas Diponegoro');
+    assert.strictEqual(WATERMARK_DEFAULT_TEXT, 'Biro Statistik BEM Universitas Diponegoro');
   });
 
   runTest('F26-2: calculateExportDimensions calculates exact 2400x1500 for standard base', () => {
@@ -413,7 +413,7 @@ async function runAllTests() {
   runTest('F29-1: buildExportManifest contains official ASCII header and separators', () => {
     const manifest = buildExportManifest(mockColumns, mockTheme);
     assert.ok(manifest.includes('================================================================='));
-    assert.ok(manifest.includes('BIRO STATISTIKA BEM UNIVERSITAS DIPONEGORO - AUDIT MANIFEST'));
+    assert.ok(manifest.includes('BIRO STATISTIK BEM UNIVERSITAS DIPONEGORO - AUDIT MANIFEST'));
     assert.ok(manifest.includes('-----------------------------------------------------------------'));
   });
 
@@ -422,7 +422,7 @@ async function runAllTests() {
     assert.ok(manifest.includes('Typography    : Poppins'));
     assert.ok(manifest.includes('Active Palette: undip_navy_gold'));
     assert.ok(manifest.includes('Watermark     : Enabled'));
-    assert.ok(manifest.includes('Watermark Text: "Biro Statistika BEM Universitas Diponegoro"'));
+    assert.ok(manifest.includes('Watermark Text: "Biro Statistik BEM Universitas Diponegoro"'));
     assert.ok(manifest.includes(`Total Columns : ${mockColumns.length}`));
   });
 

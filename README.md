@@ -1,6 +1,6 @@
 # BEM UNDIP Survey Analytics & Visualization Platform
 
-> **Biro Statistika BEM Universitas Diponegoro 2026**  
+> **Biro Statistik BEM Universitas Diponegoro 2026**  
 > Platform Otomatisasi Olah Data Survei & Visualisasi Eksekutif (McKinsey / Datawrapper Standard)
 
 ---
@@ -14,7 +14,7 @@
 
 ## 🌟 Executive Summary
 
-Platform aplikasi web analitik dan visualisasi survei otomatis untuk **Biro Statistika BEM Universitas Diponegoro** telah selesai dibangun dan diverifikasi secara menyeluruh.
+Platform aplikasi web analitik dan visualisasi survei otomatis untuk **Biro Statistik BEM Universitas Diponegoro** telah selesai dibangun dan diverifikasi secara menyeluruh.
 
 Aplikasi ini mengotomasi alur kerja rutin pengolahan data survei Google Forms dari format spreadsheet/Excel (`.xlsx`, `.csv`) menjadi rangkaian grafik presentasi berkualitas eksekutif (*McKinsey / Datawrapper aesthetic*) yang siap dipresentasikan di depan perwakilan BEM fakultas se-UNDIP.
 
@@ -53,7 +53,7 @@ Aplikasi ini mengotomasi alur kerja rutin pengolahan data survei Google Forms da
   - *2D Modern Flat*: Sudut bar membulat halus (*soft rounded corners*), geometri donut bersih, badge kontras tinggi.
   - *2.5D Isometric 3D Visual*: Gradien prisma berbayang, efek kedalaman terarah, dan pencahayaan estetik.
   - *Override Per-Chart*: Pengaturan 2D/3D bisa berlaku global maupun di-override per-kartu grafik.
-- **Watermark Resmi**: Footer resmi *"Biro Statistika BEM Universitas Diponegoro"* terpasang di setiap kartu visualisasi.
+- **Watermark Resmi**: Footer resmi *"Biro Statistik BEM Universitas Diponegoro"* (atau logo & identitas BEM fakultas kustom) terpasang di setiap kartu visualisasi.
 
 ### 4. Ekspor Resolusi Tinggi & Batch Packaging
 - **Resolusi Kanvas ~300 DPI**: Render grafik ECharts dengan `devicePixelRatio: 3` (resolusi 2400 x 1500 px), sangat tajam saat disalin ke PowerPoint atau Canva tanpa pecah.
@@ -68,7 +68,7 @@ Semua pengujian telah dieksekusi secara otomatis dan **lulus 100% (603 assertion
 
 ```
 ========================================================================= 
-   BIRO STATISTIKA BEM UNIVERSITAS DIPONEGORO - E2E TEST RUNNER            
+   BIRO STATISTIK BEM UNIVERSITAS DIPONEGORO - E2E TEST RUNNER            
 ========================================================================= 
   Tier 1: Feature Coverage (F1-F29)    : 145 passed,  0 failed  [PASS]
   Tier 2: Boundary & Corner Cases      : 145 passed,  0 failed  [PASS]

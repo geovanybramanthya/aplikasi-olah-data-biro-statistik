@@ -4,7 +4,7 @@
  * Features 19-25: Studio Tab Interface (Tab 3 in App.tsx)
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { SurveyDataset, ColumnProfile, ChartType } from '../../types/survey';
 import {
   ThemeConfig,
@@ -15,7 +15,13 @@ import {
 } from '../../types/theming';
 import { ChartCard } from './ChartCard';
 import { CustomPaletteModal } from './CustomPaletteModal';
-import { INSTITUTIONAL_PALETTES } from '../../core/theming/palettes';
+import { OrgIdentityModal } from './OrgIdentityModal';
+import {
+  INSTITUTIONAL_PALETTES,
+  resolveEffectiveWatermark,
+  resolveEffectiveBadge,
+  resolveEffectiveLogo,
+} from '../../core/theming/palettes';
 import {
   Palette,
   Type,
@@ -25,6 +31,9 @@ import {
   Check,
   Shield,
   LayoutGrid,
+  Building2,
+  Upload,
+  RotateCcw,
 } from 'lucide-react';
 
 export interface ThemingStudioProps {
@@ -53,13 +62,38 @@ export const ThemingStudio: React.FC<ThemingStudioProps> = ({
   onProceedToExport,
 }) => {
   const [isCustomPaletteOpen, setIsCustomPaletteOpen] = useState(false);
+  const [isOrgIdentityOpen, setIsOrgIdentityOpen] = useState(false);
   const [cardOverrides, setCardOverrides] = useState<
     Record<string, DimensionalityMode | 'inherit'>
   >({});
   const [isEditingWatermark, setIsEditingWatermark] = useState(false);
   const [watermarkInput, setWatermarkInput] = useState(
-    theme.watermarkText || 'Biro Statistika BEM Universitas Diponegoro'
+    theme.watermarkText || 'Biro Statistik BEM Universitas Diponegoro'
   );
+  const quickLogoInputRef = useRef<HTMLInputElement>(null);
+
+  const handleQuickLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    if (file.size > 5 * 1024 * 1024) return;
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target?.result as string;
+      if (dataUrl) {
+        onUpdateTheme({ customLogoUrl: dataUrl });
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveCustomLogo = () => {
+    onUpdateTheme({ customLogoUrl: null });
+    if (quickLogoInputRef.current) {
+      quickLogoInputRef.current.value = '';
+    }
+  };
 
   // Filter active presentation columns
   const activeColumns = dataset.columns.filter(
@@ -123,7 +157,7 @@ export const ThemingStudio: React.FC<ThemingStudioProps> = ({
 
   // Handle saving custom watermark text
   const handleSaveWatermarkText = () => {
-    const trimmed = watermarkInput.trim() || 'Biro Statistika BEM Universitas Diponegoro';
+    const trimmed = watermarkInput.trim() || 'Biro Statistik BEM Universitas Diponegoro';
     onUpdateTheme({ watermarkText: trimmed });
     setIsEditingWatermark(false);
   };
@@ -308,18 +342,19 @@ export const ThemingStudio: React.FC<ThemingStudioProps> = ({
             </p>
           </div>
 
-          {/* D. Watermark Branding */}
+          {/* D. Watermark Branding & Logo Identity */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center space-x-1.5">
                 <Shield className="w-3.5 h-3.5 text-undip-blue" />
-                <span>Watermark BEM</span>
+                <span>Watermark & Logo BEM</span>
               </label>
               <button
                 onClick={handleToggleWatermark}
                 className={`w-9 h-5 rounded-full transition-colors relative ${
                   theme.showWatermark ? 'bg-undip-navy' : 'bg-slate-300'
                 }`}
+                title={theme.showWatermark ? 'Nonaktifkan Watermark' : 'Aktifkan Watermark'}
               >
                 <div
                   className={`w-3.5 h-3.5 rounded-full bg-white transition-transform transform absolute top-0.5 ${
@@ -327,6 +362,85 @@ export const ThemingStudio: React.FC<ThemingStudioProps> = ({
                   }`}
                 />
               </button>
+            </div>
+
+            {/* Comprehensive Card: BEM Identity & Logo Management */}
+            <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-3.5 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-800 flex items-center space-x-1.5 font-jakarta">
+                  <Building2 className="w-3.5 h-3.5 text-undip-blue" />
+                  <span>Identitas & Logo BEM</span>
+                </span>
+                {theme.customLogoUrl ? (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    Logo Kustom
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-undip-blue border border-blue-200">
+                    Logo Default
+                  </span>
+                )}
+              </div>
+
+              {/* Logo Preview & Organization Name */}
+              <div className="flex items-center space-x-2.5 bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+                <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                  <img
+                    src={resolveEffectiveLogo(theme)}
+                    alt="Logo BEM"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <span className="block text-xs font-bold text-slate-800 truncate font-jakarta">
+                    Biro Statistik {theme.organizationName || 'BEM UNDIP'}
+                  </span>
+                  <span className="block text-[10px] text-slate-400 truncate">
+                    Watermark: {resolveEffectiveWatermark(theme)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  type="file"
+                  ref={quickLogoInputRef}
+                  onChange={handleQuickLogoUpload}
+                  accept="image/png,image/jpeg,image/svg+xml,image/webp"
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => quickLogoInputRef.current?.click()}
+                  className="px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 transition-colors flex items-center justify-center space-x-1 cursor-pointer"
+                  title="Unggah berkas gambar logo BEM fakultas Anda"
+                >
+                  <Upload className="w-3 h-3 text-undip-blue" />
+                  <span>Unggah Logo</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsOrgIdentityOpen(true)}
+                  className="px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-undip-navy text-white hover:bg-undip-blue transition-colors flex items-center justify-center space-x-1 cursor-pointer"
+                  title="Kustomisasi nama BEM, watermark, dan preset fakultas"
+                >
+                  <Settings2 className="w-3 h-3 text-undip-gold" />
+                  <span>Atur Identitas</span>
+                </button>
+              </div>
+
+              {theme.customLogoUrl && (
+                <button
+                  type="button"
+                  onClick={handleRemoveCustomLogo}
+                  className="w-full py-1 text-[10px] text-slate-500 hover:text-red-600 font-semibold transition-colors flex items-center justify-center space-x-1 cursor-pointer"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Kembalikan ke Logo Default Biro Statistik</span>
+                </button>
+              )}
             </div>
 
             {/* Editable Watermark Text */}
@@ -353,7 +467,7 @@ export const ThemingStudio: React.FC<ThemingStudioProps> = ({
                     className="text-xs text-slate-600 truncate cursor-pointer hover:text-undip-blue bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200"
                     title="Klik untuk mengubah teks watermark"
                   >
-                    {theme.watermarkText || 'Biro Statistika BEM Universitas Diponegoro'}
+                    {theme.watermarkText || 'Biro Statistik BEM Universitas Diponegoro'}
                   </div>
                 )}
               </div>
@@ -412,6 +526,14 @@ export const ThemingStudio: React.FC<ThemingStudioProps> = ({
         onClose={() => setIsCustomPaletteOpen(false)}
         initialPalette={theme.customPalette}
         onApplyPalette={handleApplyCustomPalette}
+      />
+
+      {/* Organization Identity & Custom Logo Modal */}
+      <OrgIdentityModal
+        isOpen={isOrgIdentityOpen}
+        onClose={() => setIsOrgIdentityOpen(false)}
+        theme={theme}
+        onUpdateTheme={onUpdateTheme}
       />
     </div>
   );

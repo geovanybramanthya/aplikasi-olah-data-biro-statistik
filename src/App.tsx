@@ -11,6 +11,7 @@ import { ThemingStudio } from './components/studio/ThemingStudio';
 import { ExportAuditSummary } from './components/export/ExportAuditSummary';
 import { ThemeConfig } from './types/theming';
 import { DEFAULT_THEME_CONFIG } from './core/theming/palettes';
+import { loadSavedOrgIdentity, saveOrgIdentity } from './services/identityStorage';
 import {
   Sparkles,
   CheckCircle2,
@@ -24,7 +25,26 @@ import {
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('ingestion');
   const [dataset, setDataset] = useState<SurveyDataset | null>(null);
-  const [theme, setTheme] = useState<ThemeConfig>(DEFAULT_THEME_CONFIG);
+  const [theme, setTheme] = useState<ThemeConfig>(() => {
+    const saved = loadSavedOrgIdentity();
+    if (!saved) return DEFAULT_THEME_CONFIG;
+    return {
+      ...DEFAULT_THEME_CONFIG,
+      organizationName: saved.organizationName || DEFAULT_THEME_CONFIG.organizationName,
+      facultyName: saved.facultyName || '',
+      customLogoUrl: saved.customLogoUrl || null,
+      watermarkText: saved.watermarkText || DEFAULT_THEME_CONFIG.watermarkText,
+      verifiedBadgeText: saved.verifiedBadgeText || DEFAULT_THEME_CONFIG.verifiedBadgeText,
+    };
+  });
+
+  const handleUpdateTheme = (updates: Partial<ThemeConfig>) => {
+    setTheme((prev) => {
+      const next = { ...prev, ...updates };
+      saveOrgIdentity(next);
+      return next;
+    });
+  };
 
   const handleDatasetLoaded = (newDataset: SurveyDataset) => {
     setDataset(newDataset);
@@ -62,7 +82,7 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
       {/* Top Navigation Header */}
-      <Header dataset={dataset} onReset={handleReset} />
+      <Header dataset={dataset} onReset={handleReset} theme={theme} />
 
       {/* Main Workflow Tabs */}
       <TabNavigation
@@ -85,8 +105,12 @@ export const App: React.FC = () => {
                   
                   <div className="relative z-10 max-w-2xl">
                     <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold text-undip-cream border border-white/20 mb-4">
-                      <img src="/logo-birstat-transparent.png" alt="Emblem" className="w-4 h-4 object-contain" />
-                      <span>Platform Resmi Biro Statistika BEM UNDIP 2026</span>
+                      <img
+                        src={theme.customLogoUrl || '/logo-birstat-transparent.png'}
+                        alt="Emblem"
+                        className="w-4 h-4 object-contain"
+                      />
+                      <span>Platform Resmi Biro Statistik {theme.organizationName || 'BEM UNDIP 2026'}</span>
                     </div>
 
                     <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-jakarta leading-tight">
@@ -118,13 +142,13 @@ export const App: React.FC = () => {
                   <div className="relative z-10 hidden md:flex flex-col items-center justify-center p-6 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl shrink-0">
                     <div className="w-32 h-32 rounded-2xl bg-white p-3 flex items-center justify-center shadow-lg border border-undip-gold/40">
                       <img
-                        src="/logo-birstat-transparent.png"
-                        alt="Biro Statistika Logo"
+                        src={theme.customLogoUrl || '/logo-birstat-transparent.png'}
+                        alt="Logo Biro Statistik"
                         className="w-full h-full object-contain filter drop-shadow"
                       />
                     </div>
                     <span className="mt-3 text-xs font-bold text-undip-cream tracking-wide uppercase font-jakarta text-center">
-                      Biro Statistika<br />BEM UNDIP
+                      Biro Statistik<br />{theme.organizationName || 'BEM UNDIP'}
                     </span>
                   </div>
                 </div>
@@ -203,6 +227,8 @@ export const App: React.FC = () => {
                 onUpdateColumn={handleUpdateColumn}
                 onBatchUpdate={handleBatchUpdate}
                 onProceedToStudio={() => setActiveTab('studio')}
+                theme={theme}
+                onUpdateTheme={handleUpdateTheme}
               />
             )}
           </div>
@@ -236,7 +262,7 @@ export const App: React.FC = () => {
               <ThemingStudio
                 dataset={dataset}
                 theme={theme}
-                onUpdateTheme={(updates) => setTheme((prev) => ({ ...prev, ...updates }))}
+                onUpdateTheme={handleUpdateTheme}
                 onUpdateColumn={handleUpdateColumn}
                 onBatchUpdateColumns={handleBatchUpdate}
                 onProceedToExport={() => setActiveTab('export')}
@@ -256,7 +282,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* Institutional Footer */}
-      <Footer />
+      <Footer theme={theme} />
     </div>
   );
 };

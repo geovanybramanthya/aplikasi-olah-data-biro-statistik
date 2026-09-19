@@ -1,6 +1,6 @@
 /**
  * Independent Adversarial Re-verification Suite: Milestone 2 PII Privacy & Gemini Fallback
- * Biro Statistika BEM Universitas Diponegoro
+ * Biro Statistik BEM Universitas Diponegoro
  * 
  * Objectives:
  * 1. Load actual survey datasets (survey_sample_1.csv and survey_sample_2.csv) and locate all PII columns.
@@ -20,7 +20,7 @@ const esbuild = require('esbuild');
 
 console.log('========================================================================');
 console.log('  ADVERSARIAL RE-VERIFICATION SUITE: M2 PII PRIVACY & GEMINI FALLBACK  ');
-console.log('  Biro Statistika BEM Universitas Diponegoro                           ');
+console.log('  Biro Statistik BEM Universitas Diponegoro                            ');
 console.log('========================================================================\n');
 
 // 1. Compile TypeScript source modules in memory via esbuild

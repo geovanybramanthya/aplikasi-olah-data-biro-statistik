@@ -1,0 +1,98 @@
+================================================================================
+  PANDUAN PENGGUNAAN OFFLINE (PORTABLE)
+  PLATFORM ANALISIS & VISUALISASI SURVEI BIRO STATISTIK BEM UNDIP 2026
+================================================================================
+
+Aplikasi ini didesain agar dapat dijalankan secara OFFLINE (tanpa koneksi internet
+dan tanpa perlu instalasi aplikasi tambahan) pada komputer Windows mana pun.
+
+--------------------------------------------------------------------------------
+1. CARA MEMBUKA APLIKASI (1-KLIK)
+--------------------------------------------------------------------------------
+1. Ekstrak file ZIP ini ke folder pilihan Anda (misalnya di Desktop atau Documents).
+2. Buka folder hasil ekstrak.
+3. Klik ganda (double-click) pada file:
+   
+       >>> Buka_Aplikasi.bat <<<
+
+4. Jendela terminal kecil akan muncul dan aplikasi otomatis terbuka di web browser
+   bawaan Anda (Microsoft Edge, Google Chrome, Mozilla Firefox, dll.) di alamat:
+   http://localhost:4173
+
+*Catatan:*
+- Jangan tutup jendela terminal hitam selama Anda menggunakan aplikasi.
+- Bila selesai menggunakan, Anda cukup menutup browser dan menutup jendela terminal
+  (atau tekan Ctrl + C di terminal).
+
+
+--------------------------------------------------------------------------------
+2. FITUR UTAMA APLIKASI
+--------------------------------------------------------------------------------
+- DATA DEMO LANGSUNG:
+  Aplikasi sudah dilengkapi dengan 2 contoh dataset survei riil:
+  * Survei 1: Evaluasi & Upgrading Fungsionaris BEM UNDIP (134 responden)
+  * Survei 2: Persepsi Keamanan & Fasilitas Kampus UNDIP (197 responden)
+  Anda bisa langsung klik "Muat Data Demo" untuk mencoba semua fitur.
+
+- SMART CLEANING & SMART GROUPING (KATEGORI "LAINNYA"):
+  Otomatis merangkum opsi-opsi dengan frekuensi kecil (misal hanya 1 responden)
+  menjadi kategori "[Lainnya]" agar chart tidak sesak/menumpuk, lengkap dengan
+  rincian tooltip interaktif.
+
+- SMART TEXT EXTRACTION (PERTANYAAN ISIAN / ESSAY):
+  Untuk pertanyaan terbuka/isian narasi, aplikasi otomatis melakukan normalisasi,
+  stopword filtering, dan klasterisasi tema kata kunci sehingga tidak menumpuk.
+
+- EKSPOR INFOGRAFIS BERKUALITAS TINGGI (HD / 300 DPI):
+  Setiap grafik dapat diunduh dalam format PNG beresolusi tinggi dengan:
+  * Judul visualisasi otomatis tercantum di dalam gambar hasil download.
+  * Dilengkapi logo resmi Biro Statistik (atau logo kustom BEM fakultas).
+  * Jarak dan tipografi proporsional (anti-mepet / breathing room optimal).
+
+- MULTI-BEM & KUSTOMISASI LOGO FAKULTAS (DINAMIS):
+  Aplikasi ini tidak hanya untuk BEM UNDIP pusat, tetapi dapat digunakan langsung
+  oleh Biro Statistik BEM dari seluruh fakultas (FSM, FT, FEB, FISIP, FH, FIB, FK,
+  FKM, FPIK, FPP, FPsi, SV, SPs):
+  * Secara default, aplikasi menggunakan logo resmi Biro Statistik.
+  * Anda dapat mengunggah logo BEM fakultas Anda sendiri di menu "Rekomendasi & Kurasi"
+    atau "Studio Visual & Tema".
+  * Hasil unduhan grafik (gambar PNG HD ~300 DPI) otomatis memuat logo dan watermark
+    resmi BEM fakultas Anda, bukan identitas BEM UNDIP pusat.
+  * Tersedia tombol preset 1-klik untuk seluruh fakultas di UNDIP dan tombol reset.
+
+- MULTI-PALETTE WARNA:
+  Mendukung palet warna resmi BEM UNDIP Navy/Gold, Modern Teal, Emerald, 
+  Crimson, Amber Sunset, Indigo Blue, dan Grayscale.
+
+
+--------------------------------------------------------------------------------
+3. CARA MENGGUNAKAN DATA SURVEI ANDA SENDIRI (GOOGLE FORMS / EXCEL / CSV)
+--------------------------------------------------------------------------------
+1. Buka Google Form survei Anda, lalu buka spreadsheet responnya.
+2. Klik menu File -> Download -> Comma Separated Values (.csv) atau Excel (.xlsx).
+3. Di dalam aplikasi ini, klik tombol "Upload File Survei" (mendukung file .csv,
+   .xlsx, dan .xls).
+4. Aplikasi akan otomatis mendeteksi baris pertanyaan, tipe data numerik/kategori,
+   dan menyajikan dashboard visualisasi lengkap secara instan.
+5. Anda juga bisa mencoba file contoh CSV yang sudah disediakan di dalam folder:
+   `contoh_data_survei/`
+
+
+--------------------------------------------------------------------------------
+4. CARA UNTUK PENGEMBANG / DEVELOPER (JIKA INGIN MODIFIKASI KODE)
+--------------------------------------------------------------------------------
+Jika Anda memiliki Node.js (v18+) dan ingin memodifikasi atau mengembangkan aplikasi:
+
+1. Buka Command Prompt / PowerShell di folder ini.
+2. Jalankan instalasi dependensi:
+       npm install
+3. Jalankan server pengembangan lokal (hot-reload):
+       npm run dev
+4. Untuk kompilasi build produksi baru:
+       npm run build
+
+
+--------------------------------------------------------------------------------
+Dibuat dengan bangga oleh Biro Statistik BEM Universitas Diponegoro 2026
+Untuk pertanyaan, masukan, atau kolaborasi: birostatistik@bem.undip.ac.id
+================================================================================

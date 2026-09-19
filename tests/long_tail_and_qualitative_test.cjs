@@ -268,7 +268,7 @@ runTest("Q13 Horizontal Bar ECharts option renders Lainnya at the bottom and pro
     activePaletteId: "undip_navy_gold",
     globalDimensionality: "2d",
     showWatermark: true,
-    watermarkText: "Biro Statistika BEM Universitas Diponegoro",
+    watermarkText: "Biro Statistik BEM Universitas Diponegoro",
   };
 
   const option = generateEChartsOption(q13, theme, "2d");
@@ -312,7 +312,7 @@ runTest("Q26 ECharts Option renders Ranked Horizontal Bar instead of colliding v
     activePaletteId: "undip_navy_gold",
     globalDimensionality: "2d",
     showWatermark: true,
-    watermarkText: "Biro Statistika BEM Universitas Diponegoro",
+    watermarkText: "Biro Statistik BEM Universitas Diponegoro",
   };
 
   const option = generateEChartsOption(q26, theme, "2d");

@@ -25,6 +25,8 @@ export interface RenderCardOptions {
   exportMode?: ExportMode;
   includeWatermark?: boolean;
   watermarkText?: string;
+  customLogoUrl?: string | null;
+  verifiedBadgeText?: string;
 }
 
 export interface ExportCardConfig {

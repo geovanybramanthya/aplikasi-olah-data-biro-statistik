@@ -125,7 +125,7 @@ export const ExportAuditSummary: React.FC<ExportAuditSummaryProps> = ({
             Paketkan Seluruh Grafik Presentasi ke Dalam Berkas ZIP
           </h2>
           <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
-            Rasterisasi otomatis ~300 DPI (2400x1500 px) dengan watermark resmi Biro Statistika BEM UNDIP,
+            Rasterisasi otomatis ~300 DPI (2400x1500 px) dengan logo dan watermark resmi Biro Statistik {theme.organizationName || 'BEM UNDIP'},
             disertai berkas manifest kepatuhan audit <code className="bg-white/20 px-1 py-0.5 rounded text-undip-cream">SURVEY_SUMMARY_AUDIT.txt</code>.
           </p>
         </div>

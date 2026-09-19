@@ -19,7 +19,12 @@ import {
   wrapLabel as coreWrapLabel,
   determineBadgePlacement as coreBadgePlacement,
 } from '../theming/echartsOptions';
-import { WATERMARK_TEXT } from '../theming/palettes';
+import {
+  WATERMARK_TEXT,
+  resolveEffectiveWatermark,
+  resolveEffectiveBadge,
+  resolveEffectiveLogo,
+} from '../theming/palettes';
 
 // Constants
 export const EXPORT_PIXEL_RATIO = 3.0; // ~300 DPI publication quality
@@ -28,7 +33,7 @@ export const DEFAULT_BASE_HEIGHT = 500;
 export const TALL_BASE_HEIGHT = 600;
 export const EXPORT_BG_COLOR = '#FFFFFF';
 export const EXPORT_MIME_TYPE = 'image/png';
-export const WATERMARK_DEFAULT_TEXT = 'Biro Statistika BEM Universitas Diponegoro';
+export const WATERMARK_DEFAULT_TEXT = 'Biro Statistik BEM Universitas Diponegoro';
 
 /**
  * Feature 27: Dynamic Anti-Clipping Margin Padding Calculation
@@ -273,7 +278,32 @@ export async function renderOffscreenECharts(
 }
 
 /**
- * Load image from DataURL
+ * Safely resolves an image URL for canvas loading.
+ * Supports data URLs, blob URLs, absolute HTTP URLs, and relative local paths.
+ */
+export function resolveLogoUrl(url: string): string {
+  if (!url) return '';
+  if (
+    url.startsWith('data:') ||
+    url.startsWith('blob:') ||
+    url.startsWith('http://') ||
+    url.startsWith('https://')
+  ) {
+    return url;
+  }
+  if (typeof document !== 'undefined') {
+    try {
+      const cleanPath = url.startsWith('/') ? url.slice(1) : url;
+      return new URL(cleanPath, document.baseURI).href;
+    } catch {
+      return url;
+    }
+  }
+  return url;
+}
+
+/**
+ * Load image from DataURL or URL string
  */
 function loadImage(dataUrl: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -402,17 +432,67 @@ export async function compositePresentationCard(
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Left Watermark Text
+  // Left Watermark Text & Emblem
   if (theme.showWatermark !== false && options?.includeWatermark !== false) {
-    const wmText = options?.watermarkText || theme.watermarkText || WATERMARK_DEFAULT_TEXT;
+    const wmText = options?.watermarkText || resolveEffectiveWatermark(theme);
+    const logoSource = options?.customLogoUrl !== undefined ? options.customLogoUrl : resolveEffectiveLogo(theme);
+
+    let textStartX = 90;
+    try {
+      if (logoSource) {
+        const resolvedLogoUrl = resolveLogoUrl(logoSource);
+        let logoImg: HTMLImageElement;
+        try {
+          logoImg = await loadImage(resolvedLogoUrl);
+        } catch {
+          // If custom logo URL failed to load, attempt fallback to default official logo
+          logoImg = await loadImage(resolveLogoUrl('/logo-birstat-transparent.png'));
+        }
+
+        const logoBoxSize = 48;
+        const logoX = 90;
+        const logoY = footerTop + 21;
+
+        // Draw white rounded background box for logo
+        ctx.save();
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(logoX, logoY, logoBoxSize, logoBoxSize, 10);
+        } else {
+          ctx.rect(logoX, logoY, logoBoxSize, logoBoxSize);
+        }
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = '#CBD5E1';
+        ctx.stroke();
+
+        // Draw logo inside with padding
+        const pad = 4;
+        ctx.drawImage(
+          logoImg,
+          logoX + pad,
+          logoY + pad,
+          logoBoxSize - pad * 2,
+          logoBoxSize - pad * 2
+        );
+        ctx.restore();
+
+        textStartX = logoX + logoBoxSize + 16;
+      }
+    } catch {
+      // Graceful fallback if image load fails
+      textStartX = 90;
+    }
+
     ctx.font = `600 24px ${font}, system-ui, sans-serif`;
-    ctx.fillStyle = '#475569';
+    ctx.fillStyle = '#334155';
     ctx.textBaseline = 'middle';
-    ctx.fillText(wmText, 90, footerTop + 45);
+    ctx.fillText(wmText, textStartX, footerTop + 45);
   }
 
-  // Right Institutional Trust Badge
-  const trustBadge = 'Survei Terverifikasi BEM UNDIP 2026';
+  // Right Institutional Trust Badge (Dynamically resolves to faculty BEM name if configured)
+  const trustBadge = options?.verifiedBadgeText || resolveEffectiveBadge(theme);
   ctx.font = `500 22px ${font}, system-ui, sans-serif`;
   ctx.fillStyle = '#64748B';
   ctx.textBaseline = 'middle';
@@ -480,7 +560,7 @@ function createPngChunk(type: string, data: Uint8Array): Uint8Array {
 export function generateHeadlessPngBuffer(
   width: number,
   height: number,
-  cardConfig: ExportCardConfig
+  cardConfig: Partial<ExportCardConfig> = {}
 ): any {
   const zlib = getNodeZlib();
   // 4 bytes per pixel: RGBA
@@ -488,8 +568,8 @@ export function generateHeadlessPngBuffer(
   const rawScanlines = new Uint8Array(rowBytes * height);
 
   // Palette colors for visual bars in headless render
-  const colors = cardConfig.theme?.activePalette?.colors || ['#002D62', '#D4AF37', '#1E56A0', '#4A90E2', '#A3B18A'];
-  const colCount = Math.max(1, Object.keys(cardConfig.column?.distribution || {}).length);
+  const colors = cardConfig?.theme?.activePalette?.colors || ['#002D62', '#D4AF37', '#1E56A0', '#4A90E2', '#A3B18A'];
+  const colCount = Math.max(1, Object.keys(cardConfig?.column?.distribution || {}).length);
 
   // Parse color helper
   const parseHex = (hex: string) => {

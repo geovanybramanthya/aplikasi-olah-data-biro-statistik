@@ -1,7 +1,15 @@
 import React from 'react';
 import { ShieldCheck, Heart, Cpu } from 'lucide-react';
+import { ThemeConfig } from '../../types/theming';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  theme?: ThemeConfig;
+}
+
+export const Footer: React.FC<FooterProps> = ({ theme }) => {
+  const effectiveLogo = theme?.customLogoUrl || '/logo-birstat-transparent.png';
+  const effectiveOrgName = theme?.organizationName || 'BEM Universitas Diponegoro 2026';
+
   return (
     <footer className="bg-white border-t border-slate-200 py-8 mt-12 text-slate-500 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -9,14 +17,14 @@ export const Footer: React.FC = () => {
           <div className="flex items-center space-x-3">
             <div className="w-9 h-9 rounded-lg bg-white p-1 flex items-center justify-center border border-slate-200 shadow-sm overflow-hidden">
               <img
-                src="/logo-birstat-transparent.png"
-                alt="Logo Biro Statistika BEM UNDIP"
+                src={effectiveLogo}
+                alt={`Logo Biro Statistik ${effectiveOrgName}`}
                 className="w-full h-full object-contain"
               />
             </div>
             <div>
               <p className="font-semibold text-slate-800">
-                Biro Riset, Data, dan Statistika • BEM Universitas Diponegoro 2026
+                Biro Riset, Data, dan Statistik • {effectiveOrgName}
               </p>
               <p className="text-slate-500 text-[11px]">
                 Platform Visualisasi dan Analisis Data Survei Mahasiswa untuk Publikasi Advokasi Kampus

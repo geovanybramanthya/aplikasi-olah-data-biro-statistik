@@ -1,6 +1,6 @@
 /**
  * Hybrid Narrative Engine & Gemini LLM Integration
- * Biro Statistika BEM Universitas Diponegoro
+ * Biro Statistik BEM Universitas Diponegoro
  * 
  * Architecture:
  * - 100% offline descriptive statistics by default (zero data leaves the browser).
@@ -126,7 +126,7 @@ export async function fetchGeminiNarrative(
   }
 
   const promptContent = `
-Anda adalah Analis Kebijakan dan Statistika Mahasiswa BEM Universitas Diponegoro.
+Anda adalah Analis Kebijakan dan Statistik Mahasiswa BEM Universitas Diponegoro.
 Berikan ringkasan naratif analitis publik yang tajam, objektif, dan berorientasi aksi (maksimal 2-3 kalimat) berdasarkan data survei mahasiswa berikut:
 
 Pertanyaan: "${column.displayTitle || column.cleanName}"

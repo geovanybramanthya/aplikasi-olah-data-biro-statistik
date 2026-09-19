@@ -723,7 +723,7 @@ function validateCustomPalette(input) {
 }
 
 // F22, F23, F24, F25: Dimensionality & Watermark
-const WATERMARK_TEXT = 'Biro Statistika BEM Universitas Diponegoro';
+const WATERMARK_TEXT = 'Biro Statistik BEM Universitas Diponegoro';
 
 function resolveDimensionality(globalMode, cardOverride) {
   if (cardOverride === '2d' || cardOverride === '3d') {
@@ -778,7 +778,7 @@ function sanitizeExportFilename(index, title) {
 function buildExportManifest(columns, theme) {
   const lines = [
     '=================================================================',
-    '  BIRO STATISTIKA BEM UNIVERSITAS DIPONEGORO - AUDIT MANIFEST',
+    '  BIRO STATISTIK BEM UNIVERSITAS DIPONEGORO - AUDIT MANIFEST',
     '=================================================================',
     `Export Date   : ${new Date().toISOString()}`,
     `Typography    : ${theme.fontFamily || 'Poppins'}`,

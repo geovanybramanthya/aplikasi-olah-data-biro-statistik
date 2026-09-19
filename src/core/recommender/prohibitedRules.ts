@@ -1,6 +1,6 @@
 /**
  * Prohibited Chart Rules & Public Standards Engine
- * Biro Statistika BEM Universitas Diponegoro
+ * Biro Statistik BEM Universitas Diponegoro
  * 
  * Explicitly bans confusing, distorted, or misleading visualizations:
  * - Radar / Spider charts (distorts proportional area perception, confusing for student audience)

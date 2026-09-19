@@ -18,7 +18,7 @@ const esbuild = require('esbuild');
 
 console.log('========================================================================');
 console.log('  CHALLENGER M2-1 ADVERSARIAL EMPIRICAL TEST SUITE');
-console.log('  Biro Statistika BEM Universitas Diponegoro');
+console.log('  Biro Statistik BEM Universitas Diponegoro');
 console.log('========================================================================\n');
 
 // Compile TypeScript modules via esbuild in-memory
@@ -547,8 +547,8 @@ assertTest('updateColumnTitle trims whitespace and protects against empty string
   const updatedBlank = updateColumnTitle(mockCol, '     ');
   assert.strictEqual(updatedBlank.displayTitle, 'Kepuasan Layanan');
 
-  const updatedTrimmed = updateColumnTitle(mockCol, '  Evaluasi Biro Statistika 2026  ');
-  assert.strictEqual(updatedTrimmed.displayTitle, 'Evaluasi Biro Statistika 2026');
+  const updatedTrimmed = updateColumnTitle(mockCol, '  Evaluasi Biro Statistik 2026  ');
+  assert.strictEqual(updatedTrimmed.displayTitle, 'Evaluasi Biro Statistik 2026');
 });
 
 assertTest('toggleColumnExclusion enforces boolean casting', () => {

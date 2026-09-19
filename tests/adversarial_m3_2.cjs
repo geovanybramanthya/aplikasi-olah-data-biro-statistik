@@ -453,7 +453,7 @@ test('S2.3: wrapLabel handles zero-length, non-breakable, and multi-word strings
   assert.strictEqual(linesUnbroken.length, 1);
   assert.strictEqual(linesUnbroken[0], unbroken);
 
-  const regular = 'Biro Statistika BEM Universitas Diponegoro';
+  const regular = 'Biro Statistik BEM Universitas Diponegoro';
   const linesRegular = wrapLabel(regular, 16);
   assert.ok(linesRegular.length >= 2);
   assert.ok(linesRegular.every((line) => line.length <= 25));
@@ -612,13 +612,13 @@ test('S5.1: WatermarkFooter renders official institutional branding when showWat
   const html = ReactDOMServer.renderToString(
     React.createElement(WatermarkFooter, {
       showWatermark: true,
-      watermarkText: 'Biro Statistika BEM Universitas Diponegoro',
+      watermarkText: 'Biro Statistik BEM Universitas Diponegoro',
       fontFamily: 'Poppins',
     })
   );
 
   assert.ok(html.length > 0, 'Rendered HTML must not be empty');
-  assert.ok(html.includes('Biro Statistika BEM Universitas Diponegoro'), 'Must contain official watermark text');
+  assert.ok(html.includes('Biro Statistik BEM Universitas Diponegoro'), 'Must contain official watermark text');
   assert.ok(html.includes('Survei Terverifikasi BEM UNDIP 2026'), 'Must contain verification badge');
   assert.ok(html.includes('font-family:Poppins'), 'Must reflect active presentation font family');
 });
@@ -627,7 +627,7 @@ test('S5.2: WatermarkFooter returns null (empty render) when showWatermark is fa
   const html = ReactDOMServer.renderToString(
     React.createElement(WatermarkFooter, {
       showWatermark: false,
-      watermarkText: 'Biro Statistika BEM Universitas Diponegoro',
+      watermarkText: 'Biro Statistik BEM Universitas Diponegoro',
     })
   );
 
@@ -641,7 +641,7 @@ test('S5.3: WatermarkFooter falls back to official text when watermarkText is em
       watermarkText: '',
     })
   );
-  assert.ok(htmlEmpty.includes('Biro Statistika BEM Universitas Diponegoro'), 'Empty string must fall back to default text');
+  assert.ok(htmlEmpty.includes('Biro Statistik BEM Universitas Diponegoro'), 'Empty string must fall back to default text');
 
   const htmlWhitespace = ReactDOMServer.renderToString(
     React.createElement(WatermarkFooter, {
@@ -649,7 +649,7 @@ test('S5.3: WatermarkFooter falls back to official text when watermarkText is em
       watermarkText: '    ',
     })
   );
-  assert.ok(htmlWhitespace.includes('Biro Statistika BEM Universitas Diponegoro'), 'Whitespace string must fall back to default text');
+  assert.ok(htmlWhitespace.includes('Biro Statistik BEM Universitas Diponegoro'), 'Whitespace string must fall back to default text');
 
   const htmlUndefined = ReactDOMServer.renderToString(
     React.createElement(WatermarkFooter, {
@@ -657,7 +657,7 @@ test('S5.3: WatermarkFooter falls back to official text when watermarkText is em
       watermarkText: undefined,
     })
   );
-  assert.ok(htmlUndefined.includes('Biro Statistika BEM Universitas Diponegoro'), 'Undefined text must fall back to default text');
+  assert.ok(htmlUndefined.includes('Biro Statistik BEM Universitas Diponegoro'), 'Undefined text must fall back to default text');
 });
 
 test('S5.4: WatermarkFooter correctly renders custom watermark text when provided', () => {
@@ -696,7 +696,7 @@ test('S5.5: ChartCard integrates WatermarkFooter and respects theme.showWatermar
       cardOverride: 'inherit',
     })
   );
-  assert.ok(htmlWithWatermark.includes('Biro Statistika BEM Universitas Diponegoro'), 'ChartCard must include watermark when showWatermark is true');
+  assert.ok(htmlWithWatermark.includes('Biro Statistik BEM Universitas Diponegoro'), 'ChartCard must include watermark when showWatermark is true');
   assert.ok(htmlWithWatermark.includes('Survei Terverifikasi BEM UNDIP 2026'));
 
   // With watermark OFF

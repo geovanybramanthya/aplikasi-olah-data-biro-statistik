@@ -7,7 +7,7 @@
 - **Dimensionality Engine**: 2D Modern Flat (soft rounded corners, clean donut geometry, high-contrast badges) and 2.5D Isometric 3D Visual Styling (shaded facet prisms, illuminated top-cap ellipses, directional drop shadows). Global preset with per-chart override selector.
 - **Theming & Typography**: 6 presentation fonts (Poppins, Montserrat, Inter, Plus Jakarta Sans, Roboto, Merriweather); 4 institutional palettes (UNDIP Navy & Gold, Modern Emerald, Executive Pastel, Warm Sunset) with >= 5 hex codes each; custom palette builder with strict validation requiring >= 5 valid hex codes (`^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$`).
 - **Narrative & Insight Engine**: Hybrid architecture: 100% offline descriptive statistics by default (mean, median, mode, percentages, net positive agreement, top-box), with an optional Gemini LLM narrative toggle with graceful fallback to offline statistics when API key is not provided or offline.
-- **Export & Packaging Engine**: Canvas card rasterization at ~300 DPI (3x scale factor, 2400x1500 px) with official BEM UNDIP footer watermark ("Biro Statistika BEM Universitas Diponegoro"), wrapped in in-memory sequential JSZip batch archive with audit metadata file (`SURVEY_SUMMARY_AUDIT.txt`).
+- **Export & Packaging Engine**: Canvas card rasterization at ~300 DPI (3x scale factor, 2400x1500 px) with official BEM UNDIP footer watermark ("Biro Statistik BEM Universitas Diponegoro"), wrapped in in-memory sequential JSZip batch archive with audit metadata file (`SURVEY_SUMMARY_AUDIT.txt`).
 
 ---
 
@@ -38,7 +38,7 @@
 | 22 | 2D Modern Flat Visual Style | Soft rounded bar corners, clean donut geometry, high-contrast badges | M3 | R3 |
 | 23 | 2.5D Isometric 3D Visual Style | Shaded facet prisms, illuminated top-cap ellipses, directional drop shadows | M3 | R3 |
 | 24 | Per-Chart Dimensionality Override | Individual toggle pill on each chart card overriding global 2D/3D preset | M3 | R3 |
-| 25 | Official BEM UNDIP Watermark | Infographic card footer watermark ("Biro Statistika BEM Universitas Diponegoro") | M3 | R3 |
+| 25 | Official BEM UNDIP Watermark | Infographic card footer watermark ("Biro Statistik BEM Universitas Diponegoro") | M3 | R3 |
 | 26 | High-Resolution 3x Canvas Export | Native ~300 DPI rasterization (2400x1500 px) via ECharts getDataURL without clipping | M4 | R4, AC |
 | 27 | Anti-Clipping Geometry & Padding | Dynamic margin safety clearance and auto-wrapping for long Indonesian category labels | M4 | R4, AC |
 | 28 | Single Chart PNG Export | One-click 3x PNG download for any individual chart card | M4 | R4 |

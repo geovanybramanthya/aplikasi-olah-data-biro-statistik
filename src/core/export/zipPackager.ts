@@ -17,7 +17,12 @@ import {
   renderChartCardToBlob,
   renderCompositeCardToBuffer,
 } from './canvasExporter';
-import { WATERMARK_TEXT, resolveDimensionality } from '../theming/palettes';
+import {
+  WATERMARK_TEXT,
+  resolveDimensionality,
+  resolveEffectiveWatermark,
+  resolveEffectiveBadge,
+} from '../theming/palettes';
 
 export const AUDIT_MANIFEST_FILENAME = 'SURVEY_SUMMARY_AUDIT.txt';
 export const DEFAULT_CHARTS_FOLDER = 'charts';
@@ -44,12 +49,15 @@ export function formatBatchChartFilename(
 /**
  * Generate sanitized ZIP download filename: <dataset_name>_BEM_UNDIP_Charts.zip
  */
-export function generateZipArchiveFilename(datasetName?: string): string {
+export function generateZipArchiveFilename(datasetName?: string, orgName?: string): string {
   const cleanName = (datasetName || 'Survey')
     .replace(/\.[^/.]+$/, '') // strip extension
     .replace(/[^a-zA-Z0-9_\-]+/g, '_')
     .replace(/^_+|_+$/g, '');
-  return `${cleanName || 'Survey'}_BEM_UNDIP_Charts.zip`;
+  const orgSlug = orgName && orgName !== 'BEM Universitas Diponegoro'
+    ? orgName.replace(/[^a-zA-Z0-9_\-]+/g, '_').replace(/^_+|_+$/g, '')
+    : 'BEM_UNDIP';
+  return `${cleanName || 'Survey'}_${orgSlug}_Charts.zip`;
 }
 
 /**
@@ -60,17 +68,24 @@ export function buildExportManifest(
   theme: Partial<ThemeConfig> = {},
   datasetInfo?: { name?: string; rowCount?: number }
 ): string {
+  const orgTitle = theme?.organizationName
+    ? theme.organizationName.toUpperCase()
+    : 'BEM UNIVERSITAS DIPONEGORO';
+
   const lines: string[] = [
     '=================================================================',
-    '  BIRO STATISTIKA BEM UNIVERSITAS DIPONEGORO - AUDIT MANIFEST',
+    `  BIRO STATISTIK ${orgTitle} - AUDIT MANIFEST`,
     '=================================================================',
     `Export Date   : ${new Date().toISOString()}`,
     ...(datasetInfo?.name ? [`Dataset Name  : ${datasetInfo.name}`] : []),
     ...(datasetInfo?.rowCount !== undefined ? [`Total Rows    : ${datasetInfo.rowCount}`] : []),
+    `Organization  : ${theme?.organizationName || 'BEM Universitas Diponegoro'}`,
+    `Logo Status   : ${theme?.customLogoUrl ? 'Logo Kustom BEM / Fakultas' : 'Logo Default Biro Statistik'}`,
     `Typography    : ${theme?.fontFamily || 'Poppins'}`,
     `Active Palette: ${theme?.activePaletteId || 'undip_navy_gold'}`,
     `Watermark     : ${theme?.showWatermark ? 'Enabled' : 'Disabled'}`,
-    `Watermark Text: "${theme?.watermarkText || WATERMARK_TEXT}"`,
+    `Watermark Text: "${resolveEffectiveWatermark(theme)}"`,
+    `Trust Badge   : "${resolveEffectiveBadge(theme)}"`,
     `Total Columns : ${columns.length}`,
     '-----------------------------------------------------------------',
     'Exported Charts:',
@@ -251,7 +266,7 @@ export async function exportDatasetToZip(
     });
   }
 
-  const downloadFilename = generateZipArchiveFilename(dataset.name);
+  const downloadFilename = generateZipArchiveFilename(dataset.name, theme?.organizationName);
 
   if (autoDownload && typeof window !== 'undefined') {
     triggerBlobDownload(zipResult, downloadFilename);

@@ -12,9 +12,13 @@ import {
 } from '../../types/theming';
 
 /**
- * Official BEM UNDIP Footer Watermark Text
+ * Official BEM UNDIP Footer Watermark Text & Identity Defaults
  */
-export const WATERMARK_TEXT = 'Biro Statistika BEM Universitas Diponegoro';
+export const WATERMARK_TEXT = 'Biro Statistik BEM Universitas Diponegoro';
+export const DEFAULT_LOGO_URL = '/logo-birstat-transparent.png';
+export const DEFAULT_ORG_NAME = 'BEM Universitas Diponegoro';
+export const DEFAULT_BADGE_TEXT = 'Survei Terverifikasi BEM UNDIP 2026';
+
 
 /**
  * 4 Curated Institutional Color Palettes (>= 5 hex codes each)
@@ -78,6 +82,10 @@ export const DEFAULT_THEME_CONFIG: ThemeConfig = {
   globalDimensionality: '2d',
   showWatermark: true,
   watermarkText: WATERMARK_TEXT,
+  organizationName: DEFAULT_ORG_NAME,
+  facultyName: '',
+  customLogoUrl: null,
+  verifiedBadgeText: DEFAULT_BADGE_TEXT,
 };
 
 // Also export as DEFAULT_THEME for alternative naming
@@ -143,4 +151,59 @@ export function resolveDimensionality(
     return cardOverride;
   }
   return globalMode === '3d' ? '3d' : '2d';
+}
+
+/**
+ * Resolves the effective watermark text based on theme configuration.
+ * If organizationName is customized (e.g., 'BEM Fakultas Sains dan Matematika UNDIP' or 'BEM FT'),
+ * it automatically adapts the watermark so exported cards do not get stuck on 'BEM UNDIP'.
+ */
+export function resolveEffectiveWatermark(theme?: Partial<ThemeConfig>): string {
+  if (!theme) return WATERMARK_TEXT;
+  const customWm = theme.watermarkText?.trim();
+  const org = theme.organizationName?.trim();
+
+  // If user explicitly provided a custom watermark that is not default and not empty
+  if (customWm && customWm !== WATERMARK_TEXT) {
+    return customWm;
+  }
+
+  // If organizationName is customized (different from default UNDIP)
+  if (org && org !== DEFAULT_ORG_NAME) {
+    if (org.toLowerCase().startsWith('biro statistik')) {
+      return org;
+    }
+    return `Biro Statistik ${org}`;
+  }
+
+  return customWm || WATERMARK_TEXT;
+}
+
+/**
+ * Resolves the institutional trust badge text based on theme configuration.
+ */
+export function resolveEffectiveBadge(theme?: Partial<ThemeConfig>): string {
+  if (!theme) return DEFAULT_BADGE_TEXT;
+  const customBadge = theme.verifiedBadgeText?.trim();
+  const org = theme.organizationName?.trim();
+
+  if (customBadge && customBadge !== DEFAULT_BADGE_TEXT) {
+    return customBadge;
+  }
+
+  if (org && org !== DEFAULT_ORG_NAME) {
+    return `Survei Terverifikasi ${org} 2026`;
+  }
+
+  return customBadge || DEFAULT_BADGE_TEXT;
+}
+
+/**
+ * Resolves the effective logo image URL (custom uploaded logo or default Biro Statistik logo).
+ */
+export function resolveEffectiveLogo(theme?: Partial<ThemeConfig>): string {
+  if (theme?.customLogoUrl) {
+    return theme.customLogoUrl;
+  }
+  return DEFAULT_LOGO_URL;
 }

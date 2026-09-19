@@ -145,7 +145,7 @@ const sampleTheme = {
   customPalette: DEFAULT_CUSTOM_PALETTE,
   globalDimensionality: '2d',
   showWatermark: true,
-  watermarkText: 'Biro Statistika BEM Universitas Diponegoro',
+  watermarkText: 'Biro Statistik BEM Universitas Diponegoro',
 };
 
 (async () => {
@@ -300,7 +300,7 @@ const sampleTheme = {
     assert.strictEqual(DEFAULT_THEME.activePaletteId, 'undip_navy_gold');
     assert.strictEqual(DEFAULT_THEME.globalDimensionality, '2d');
     assert.strictEqual(DEFAULT_THEME.showWatermark, true);
-    assert.strictEqual(DEFAULT_THEME.watermarkText, 'Biro Statistika BEM Universitas Diponegoro');
+    assert.strictEqual(DEFAULT_THEME.watermarkText, 'Biro Statistik BEM Universitas Diponegoro');
     assert.ok(DEFAULT_THEME.customPalette.colors.length >= 5);
   });
 
@@ -580,8 +580,8 @@ const sampleTheme = {
   console.log('\n--- Test Suite 8: Feature 25 & Single PNG Export ---');
 
   runTest('F25-1: WATERMARK_TEXT and WATERMARK_DEFAULT_TEXT match official specification', () => {
-    assert.strictEqual(WATERMARK_TEXT, 'Biro Statistika BEM Universitas Diponegoro');
-    assert.strictEqual(WATERMARK_DEFAULT_TEXT, 'Biro Statistika BEM Universitas Diponegoro');
+    assert.strictEqual(WATERMARK_TEXT, 'Biro Statistik BEM Universitas Diponegoro');
+    assert.strictEqual(WATERMARK_DEFAULT_TEXT, 'Biro Statistik BEM Universitas Diponegoro');
   });
 
   runTest('F28-1: sanitizeExportFilename generates clean 2-digit slugged filename', () => {

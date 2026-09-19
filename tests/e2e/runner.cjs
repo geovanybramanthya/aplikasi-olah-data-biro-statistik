@@ -44,7 +44,7 @@ async function runRunner() {
   const startTime = Date.now();
 
   console.log('\n' + BOLD + BG_BLUE + WHITE + ' ========================================================================= ' + RESET);
-  console.log(BOLD + BG_BLUE + WHITE + '   BIRO STATISTIKA BEM UNIVERSITAS DIPONEGORO - E2E TEST RUNNER            ' + RESET);
+  console.log(BOLD + BG_BLUE + WHITE + '   BIRO STATISTIK BEM UNIVERSITAS DIPONEGORO - E2E TEST RUNNER             ' + RESET);
   console.log(BOLD + BG_BLUE + WHITE + ' ========================================================================= ' + RESET + '\n');
 
   console.log(`${CYAN}${BOLD}Platform:${RESET} Node.js ${process.version} on ${process.platform}`);

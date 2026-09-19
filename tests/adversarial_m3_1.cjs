@@ -22,7 +22,7 @@ const esbuild = require('esbuild');
 
 console.log('========================================================================');
 console.log('  CHALLENGER M3-1 ADVERSARIAL STRESS-TEST SUITE');
-console.log('  Biro Statistika BEM Universitas Diponegoro');
+console.log('  Biro Statistik BEM Universitas Diponegoro');
 console.log('========================================================================\n');
 
 // 1. Compile TypeScript source modules in-memory
@@ -425,7 +425,7 @@ runTest('6.3: Likert scale preserves 1..max order with 0-response gaps', () => {
 });
 
 runTest('6.4: Official Watermark Text matches exact institutional specification', () => {
-  assert.strictEqual(WATERMARK_TEXT, 'Biro Statistika BEM Universitas Diponegoro');
+  assert.strictEqual(WATERMARK_TEXT, 'Biro Statistik BEM Universitas Diponegoro');
 });
 
 console.log('\n========================================================================');

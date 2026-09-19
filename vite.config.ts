@@ -9,4 +9,9 @@ export default defineConfig({
     port: 3000,
     open: false,
   },
+  preview: {
+    port: 4173,
+    host: '0.0.0.0',
+    cors: true,
+  },
 });

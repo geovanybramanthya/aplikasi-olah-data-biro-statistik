@@ -27,3 +27,4 @@ dist-ssr
 # Test temporary files
 .temp*
 test_output*
+*.zip

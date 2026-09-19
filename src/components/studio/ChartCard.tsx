@@ -562,7 +562,10 @@ export const ChartCard: React.FC<ChartCardProps> = ({
         <WatermarkFooter
           showWatermark={theme.showWatermark}
           watermarkText={theme.watermarkText}
+          organizationName={theme.organizationName}
           fontFamily={theme.fontFamily}
+          customLogoUrl={theme.customLogoUrl}
+          verifiedBadgeText={theme.verifiedBadgeText}
         />
       </div>
     </div>

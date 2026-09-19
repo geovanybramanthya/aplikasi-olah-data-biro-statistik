@@ -66,7 +66,7 @@ node tests/e2e/runner.cjs --tier 4
 
 ```
  ========================================================================= 
-   BIRO STATISTIKA BEM UNIVERSITAS DIPONEGORO - E2E TEST RUNNER            
+   BIRO STATISTIK BEM UNIVERSITAS DIPONEGORO - E2E TEST RUNNER            
  ========================================================================= 
 
 Platform: Node.js v26.3.0 on win32

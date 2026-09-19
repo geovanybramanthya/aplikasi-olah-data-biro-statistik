@@ -1,15 +1,19 @@
 import React from 'react';
 import { BarChart3, ShieldCheck, Database, RefreshCw, Layers } from 'lucide-react';
 import { SurveyDataset } from '../../types/survey';
+import { ThemeConfig } from '../../types/theming';
 
 interface HeaderProps {
   dataset: SurveyDataset | null;
   onReset?: () => void;
+  theme?: ThemeConfig;
 }
 
-export const Header: React.FC<HeaderProps> = ({ dataset, onReset }) => {
+export const Header: React.FC<HeaderProps> = ({ dataset, onReset, theme }) => {
   const piiCount = dataset?.columns.filter((c) => c.isPII).length ?? 0;
   const validColumnsCount = dataset?.columns.filter((c) => !c.isPII).length ?? 0;
+  const effectiveLogo = theme?.customLogoUrl || '/logo-birstat-transparent.png';
+  const effectiveOrgName = theme?.organizationName || 'BEM UNDIP';
 
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
@@ -19,15 +23,15 @@ export const Header: React.FC<HeaderProps> = ({ dataset, onReset }) => {
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 rounded-xl bg-white p-1 flex items-center justify-center shadow-md border-2 border-undip-gold/40 overflow-hidden">
               <img
-                src="/logo-birstat-transparent.png"
-                alt="Logo Biro Statistika BEM UNDIP"
+                src={effectiveLogo}
+                alt={`Logo Biro Statistik ${effectiveOrgName}`}
                 className="w-full h-full object-contain"
               />
             </div>
             <div>
               <div className="flex items-center space-x-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-undip-gold bg-undip-navy/10 px-2.5 py-0.5 rounded-full border border-undip-gold/30">
-                  Biro Statistika BEM UNDIP
+                  Biro Statistik {effectiveOrgName}
                 </span>
                 <span className="inline-flex items-center text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                   <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-600" />

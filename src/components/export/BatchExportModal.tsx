@@ -131,7 +131,7 @@ export const BatchExportModal: React.FC<BatchExportModalProps> = ({
             <div>
               <h3 className="text-lg font-bold font-jakarta">Ekspor Paket Batch (.ZIP)</h3>
               <p className="text-xs text-slate-200">
-                Resolusi Tinggi 3x (~300 DPI) • Standar Publikasi BEM UNDIP
+                Resolusi Tinggi 3x (~300 DPI) • Standar Publikasi {theme.organizationName || 'BEM UNDIP'}
               </p>
             </div>
           </div>

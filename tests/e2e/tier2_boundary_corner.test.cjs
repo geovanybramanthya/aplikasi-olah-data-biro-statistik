@@ -919,7 +919,7 @@ describe('Tier 2: Boundary & Corner Cases (F1 - F29)', () => {
     });
 
     test('F25-B2: Long watermark text (80 chars) contained in footer manifest', () => {
-      const longWatermark = 'Biro Statistika BEM Universitas Diponegoro 2026 - Kabinet Pelopor Kebaikan Kampus';
+      const longWatermark = 'Biro Statistik BEM Universitas Diponegoro 2026 - Kabinet Pelopor Kebaikan Kampus';
       const manifest = buildExportManifest([], { showWatermark: true, watermarkText: longWatermark });
       assert.ok(manifest.includes(longWatermark));
     });
@@ -930,7 +930,7 @@ describe('Tier 2: Boundary & Corner Cases (F1 - F29)', () => {
     });
 
     test('F25-B4: Watermark text containing special symbols preserves exact string', () => {
-      const symWatermark = '© 2026 BEM UNDIP & Biro Statistika';
+      const symWatermark = '© 2026 BEM UNDIP & Biro Statistik';
       const manifest = buildExportManifest([], { showWatermark: true, watermarkText: symWatermark });
       assert.ok(manifest.includes(symWatermark));
     });

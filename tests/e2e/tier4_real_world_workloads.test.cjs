@@ -248,7 +248,7 @@ describe('Tier 4: Real-World Application Scenarios', () => {
     assert.strictEqual(card2Override, '2d');
 
     // 4. BEM UNDIP Watermark Configuration
-    assert.strictEqual(WATERMARK_TEXT, 'Biro Statistika BEM Universitas Diponegoro');
+    assert.strictEqual(WATERMARK_TEXT, 'Biro Statistik BEM Universitas Diponegoro');
   });
 
   // =========================================================================

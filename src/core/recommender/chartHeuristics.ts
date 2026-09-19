@@ -1,6 +1,6 @@
 /**
  * Public-Friendly AI Chart Recommendation Engine & Curation Studio
- * Biro Statistika BEM Universitas Diponegoro
+ * Biro Statistik BEM Universitas Diponegoro
  * 
  * Heuristics:
  * 1. METADATA_PII -> 'none' (excluded by default)

@@ -471,10 +471,10 @@ describe('Tier 3: Cross-Feature Interactions (Pairwise Combinations)', () => {
     const manifest = buildExportManifest([col], {
       fontFamily: 'Montserrat',
       showWatermark: true,
-      watermarkText: 'Biro Statistika BEM UNDIP',
+      watermarkText: 'Biro Statistik BEM UNDIP',
     });
     assert.ok(manifest.includes('Distribusi Fakultas Mahasiswa BEM 2026'));
-    assert.ok(manifest.includes('Biro Statistika BEM UNDIP'));
+    assert.ok(manifest.includes('Biro Statistik BEM UNDIP'));
 
     const zipBuf = await packageBatchZip([{ filename: sanitizeExportFilename(1, col.displayTitle), data: 'png_bytes' }], manifest);
     const zip = await JSZip.loadAsync(zipBuf);

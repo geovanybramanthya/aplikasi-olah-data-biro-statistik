@@ -1,5 +1,5 @@
 {
-  "name": "bem-undip-stat-app",
+  "name": "aplikasi-olah-data-biro-statistik",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -13,7 +13,8 @@
     "test:m4": "node tests/m4_verification.cjs",
     "test:challenger:m2": "node tests/adversarial_m2_1.cjs",
     "test:challenger:m3": "node tests/adversarial_m3_1.cjs",
-    "test:e2e": "node tests/e2e/runner.cjs"
+    "test:e2e": "node tests/e2e/runner.cjs",
+    "test:identity": "node tests/custom_identity_verification.cjs"
   },
   "dependencies": {
     "echarts": "^5.5.1",

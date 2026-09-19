@@ -32,4 +32,10 @@ export interface ThemeConfig {
   globalDimensionality: DimensionalityMode;
   showWatermark: boolean;
   watermarkText: string;
+  // Dynamic Organization / BEM Faculty Identity
+  customLogoUrl?: string | null;
+  organizationName?: string;
+  facultyName?: string;
+  verifiedBadgeText?: string;
 }
+

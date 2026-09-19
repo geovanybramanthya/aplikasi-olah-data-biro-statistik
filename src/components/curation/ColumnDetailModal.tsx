@@ -283,7 +283,7 @@ export const ColumnDetailModal: React.FC<ColumnDetailModalProps> = ({
               <Info className="w-4 h-4 text-undip-blue mt-0.5 shrink-0" />
               <div>
                 <p className="font-semibold text-undip-navy">
-                  Rekomendasi Biro Statistika: {rationale.title}
+                  Rekomendasi Biro Statistik: {rationale.title}
                 </p>
                 <p className="text-blue-800 mt-0.5 leading-relaxed">{rationale.rationale}</p>
                 <p className="text-[11px] text-blue-700 mt-1 italic">
@@ -552,7 +552,7 @@ export const ColumnDetailModal: React.FC<ColumnDetailModalProps> = ({
                 >
                   {currentNarrative.startsWith('[Gemini AI]')
                     ? 'AI Insight (Gemini)'
-                    : 'Statistik Offline (Biro Statistika)'}
+                    : 'Statistik Offline (Biro Statistik)'}
                 </span>
               </div>
               <p className="text-xs text-slate-800 leading-relaxed font-sans whitespace-pre-wrap">

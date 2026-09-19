@@ -1043,7 +1043,7 @@ describe('Tier 1: Feature Coverage (F1 - F29)', () => {
   // ==========================================
   describe('F25: Official BEM UNDIP Watermark', () => {
     test('F25-1: Default watermark text exact match to specification', () => {
-      assert.strictEqual(WATERMARK_TEXT, 'Biro Statistika BEM Universitas Diponegoro');
+      assert.strictEqual(WATERMARK_TEXT, 'Biro Statistik BEM Universitas Diponegoro');
     });
 
     test('F25-2: Watermark is enabled by default in export manifest', () => {
@@ -1198,7 +1198,7 @@ describe('Tier 1: Feature Coverage (F1 - F29)', () => {
         [{ cleanName: 'Q1', displayTitle: 'Q1', isExcluded: false, selectedChart: 'donut', validResponses: 50 }],
         { fontFamily: 'Montserrat', activePaletteId: 'modern_emerald', showWatermark: true }
       );
-      assert.ok(manifest.includes('BIRO STATISTIKA BEM UNIVERSITAS DIPONEGORO'));
+      assert.ok(manifest.includes('BIRO STATISTIK BEM UNIVERSITAS DIPONEGORO'));
       assert.ok(manifest.includes('Montserrat'));
       assert.ok(manifest.includes('modern_emerald'));
       assert.ok(manifest.includes('[DONUT] Q1 (N=50)'));

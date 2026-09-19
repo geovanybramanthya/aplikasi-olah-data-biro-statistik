@@ -1,6 +1,6 @@
 /**
  * Adversarial Challenger M2-2 Stress Test Suite
- * Biro Statistika BEM Universitas Diponegoro
+ * Biro Statistik BEM Universitas Diponegoro
  * 
  * Comprehensive Stress & Resilience Testing:
  * 1. Curation State Mutations Stress Testing:

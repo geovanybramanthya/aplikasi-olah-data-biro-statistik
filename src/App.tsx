@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { SurveyDataset, ColumnProfile } from './types/survey';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
@@ -9,6 +10,7 @@ import { IngestionSummary } from './components/ingestion/IngestionSummary';
 import { CurationTable } from './components/curation/CurationTable';
 import { ThemingStudio } from './components/studio/ThemingStudio';
 import { ExportAuditSummary } from './components/export/ExportAuditSummary';
+import { LandingPage } from './components/landing/LandingPage';
 import { ThemeConfig } from './types/theming';
 import { DEFAULT_THEME_CONFIG } from './core/theming/palettes';
 import { loadSavedOrgIdentity, saveOrgIdentity } from './services/identityStorage';
@@ -22,21 +24,38 @@ import {
   Database,
 } from 'lucide-react';
 
-export const App: React.FC = () => {
+const loadInitialTheme = (): ThemeConfig => {
+  const saved = loadSavedOrgIdentity();
+  if (!saved) return DEFAULT_THEME_CONFIG;
+  return {
+    ...DEFAULT_THEME_CONFIG,
+    organizationName: saved.organizationName || DEFAULT_THEME_CONFIG.organizationName,
+    facultyName: saved.facultyName || '',
+    customLogoUrl: saved.customLogoUrl || null,
+    watermarkText: saved.watermarkText || DEFAULT_THEME_CONFIG.watermarkText,
+    verifiedBadgeText: saved.verifiedBadgeText || DEFAULT_THEME_CONFIG.verifiedBadgeText,
+  };
+};
+
+const LandingRoute: React.FC = () => {
+  const navigate = useNavigate();
+  const [theme] = useState<ThemeConfig>(loadInitialTheme);
+
+  return (
+    <LandingPage
+      theme={theme}
+      onEnterApp={() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        navigate('/app');
+      }}
+    />
+  );
+};
+
+const Workspace: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('ingestion');
   const [dataset, setDataset] = useState<SurveyDataset | null>(null);
-  const [theme, setTheme] = useState<ThemeConfig>(() => {
-    const saved = loadSavedOrgIdentity();
-    if (!saved) return DEFAULT_THEME_CONFIG;
-    return {
-      ...DEFAULT_THEME_CONFIG,
-      organizationName: saved.organizationName || DEFAULT_THEME_CONFIG.organizationName,
-      facultyName: saved.facultyName || '',
-      customLogoUrl: saved.customLogoUrl || null,
-      watermarkText: saved.watermarkText || DEFAULT_THEME_CONFIG.watermarkText,
-      verifiedBadgeText: saved.verifiedBadgeText || DEFAULT_THEME_CONFIG.verifiedBadgeText,
-    };
-  });
+  const [theme, setTheme] = useState<ThemeConfig>(loadInitialTheme);
 
   const handleUpdateTheme = (updates: Partial<ThemeConfig>) => {
     setTheme((prev) => {
@@ -286,5 +305,13 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
+export const App: React.FC = () => (
+  <Routes>
+    <Route path="/" element={<LandingRoute />} />
+    <Route path="/app" element={<Workspace />} />
+    <Route path="*" element={<Navigate to="/" replace />} />
+  </Routes>
+);
 
 export default App;

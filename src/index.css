@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,6 +15,101 @@ body {
   background-color: #f8fafc;
   color: #0f172a;
   min-height: 100vh;
+}
+
+.landing-experience {
+  background: #000;
+  color: #fff;
+  font-family: 'Readex Pro', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.landing-experience .hero-title {
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.landing-experience :focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+@keyframes landing-marquee {
+  to {
+    transform: translateX(calc(-50% - 0.375rem));
+  }
+}
+
+@keyframes landing-list-item {
+  0%, 14%, 100% {
+    opacity: 0.28;
+    transform: translateY(14px);
+  }
+
+  22%, 82% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes landing-beam {
+  to {
+    stroke-dashoffset: -30;
+  }
+}
+
+@keyframes landing-export-progress {
+  0%, 12% { transform: scaleX(0.08); }
+  68%, 100% { transform: scaleX(1); }
+}
+
+@keyframes landing-aurora {
+  0%, 100% { transform: translate3d(-6%, -4%, 0) scale(1); }
+  50% { transform: translate3d(6%, 4%, 0) scale(1.1); }
+}
+
+.landing-marquee-track {
+  animation: landing-marquee 22s linear infinite;
+}
+
+.landing-animated-list > * {
+  animation: landing-list-item 6s ease-in-out infinite;
+}
+
+.landing-animated-list > *:nth-child(2) {
+  animation-delay: 1.3s;
+}
+
+.landing-animated-list > *:nth-child(3) {
+  animation-delay: 2.6s;
+}
+
+.landing-beam {
+  stroke-dasharray: 5 16;
+  animation: landing-beam 2.6s linear infinite;
+}
+
+.landing-export-progress {
+  animation: landing-export-progress 3.2s ease-in-out infinite;
+}
+
+.landing-aurora {
+  animation: landing-aurora 16s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-marquee-track,
+  .landing-animated-list > *,
+  .landing-beam,
+  .landing-aurora {
+    animation: none;
+  }
+
+  .landing-export-progress {
+    animation: none;
+    transform: scaleX(1);
+  }
 }
 
 /* Custom scrollbar */
